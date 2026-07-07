@@ -7,8 +7,38 @@ from hfortix_core.http.jsonrpc_client import HTTPClientJSONRPC
 from hfortix_fortianalyzer.models import FortiAnalyzerResponse
 
 
-class DvmdbDeviceHa_slaveGetResponse(FortiAnalyzerResponse):
-    """Typed response for DvmdbDeviceHa_slave endpoint with autocomplete support."""
+class DvmdbDeviceHaSlaveGetItem:
+    """Item yielded when iterating over DvmdbDeviceHaSlaveGetResponse."""
+
+    @property
+    def oid(self) -> int: ...
+    @property
+    def conf_status(self) -> int: ...
+    @property
+    def idx(self) -> int: ...
+    @property
+    def name(self) -> str: ...
+    @property
+    def prio(self) -> int: ...
+    @property
+    def role(self) -> Literal["slave", "master"]: ...
+    @property
+    def sn(self) -> str: ...
+    @property
+    def status(self) -> int: ...
+
+    # Inherited from FortiAnalyzerObject
+    @property
+    def raw(self) -> dict[str, Any]: ...
+    @property
+    def dict(self) -> dict[str, Any]: ...
+    @property
+    def json(self) -> str: ...
+    def __getitem__(self, key: str) -> Any: ...
+
+
+class DvmdbDeviceHaSlaveGetResponse(FortiAnalyzerResponse):
+    """Typed response for DvmdbDeviceHaSlaveGet endpoint with autocomplete support."""
 
     # ========================================================================
     # HTTP Layer Properties (inherited from FortiAnalyzerResponse)
@@ -79,34 +109,6 @@ class DvmdbDeviceHa_slaveGetResponse(FortiAnalyzerResponse):
         """Field: status"""
         ...
 
-    class DvmdbDeviceHa_slaveItem:
-        """Item yielded when iterating over DvmdbDeviceHa_slaveResponse."""
-
-        @property
-        def oid(self) -> int: ...
-        @property
-        def conf_status(self) -> int: ...
-        @property
-        def idx(self) -> int: ...
-        @property
-        def name(self) -> str: ...
-        @property
-        def prio(self) -> int: ...
-        @property
-        def role(self) -> Literal["slave", "master"]: ...
-        @property
-        def sn(self) -> str: ...
-        @property
-        def status(self) -> int: ...
-
-        # Inherited from FortiAnalyzerObject
-        @property
-        def raw(self) -> dict[str, Any]: ...
-        @property
-        def dict(self) -> dict[str, Any]: ...
-        @property
-        def json(self) -> str: ...
-        def __getitem__(self, key: str) -> Any: ...
 
     # Inherited methods from FortiAnalyzerResponse
     @property
@@ -118,20 +120,19 @@ class DvmdbDeviceHa_slaveGetResponse(FortiAnalyzerResponse):
     def get(self, key: str, default: Any = None) -> Any: ...
     def __getitem__(self, key: str) -> Any: ...
     def __contains__(self, key: str) -> bool: ...
-    def __iter__(self) -> Iterator[DvmdbDeviceHa_slaveItem]: ...
+    def __iter__(self) -> Iterator[DvmdbDeviceHaSlaveGetItem]: ...
     def __len__(self) -> int: ...
 
 
-
-class DvmdbDeviceHa_slave:
+class DvmdbDeviceHaSlave:
     """FortiAnalyzer endpoint: dvmdb.device.ha_slave"""
 
     def __init__(self, client: HTTPClientJSONRPC) -> None: ...
 
     def get(
         self,
-        adom: str | None = None,
-        device: str | None = None,
+        device: str,
+        ha_slave: int | str | None = None,
         expand_member: str | None = None,
         fields: list[Literal["conf_status", "idx", "name", "prio", "role", "sn", "status"]] | None = None,
         filter: list[str] | None = None,
@@ -139,9 +140,9 @@ class DvmdbDeviceHa_slave:
         option: Literal["count", "object member", "syntax"] | None = None,
         range: list[int] | None = None,
         sortings: list[dict[str, Any]] | None = None,
-    ) -> DvmdbDeviceHa_slaveGetResponse:
+    ) -> DvmdbDeviceHaSlaveGetResponse:
         """GET operation."""
         ...
 
 
-__all__ = ["DvmdbDeviceHa_slave", "DvmdbDeviceHa_slaveGetResponse"]
+__all__ = ["DvmdbDeviceHaSlave", "DvmdbDeviceHaSlaveGetResponse"]

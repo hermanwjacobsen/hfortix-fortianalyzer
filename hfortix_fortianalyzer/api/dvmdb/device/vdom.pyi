@@ -7,8 +7,24 @@ from hfortix_core.http.jsonrpc_client import HTTPClientJSONRPC
 from hfortix_fortianalyzer.models import FortiAnalyzerResponse
 
 
+class DvmdbDeviceVdomAddItem:
+    """Item yielded when iterating over DvmdbDeviceVdomAddResponse."""
+
+    @property
+    def name(self) -> str: ...
+
+    # Inherited from FortiAnalyzerObject
+    @property
+    def raw(self) -> dict[str, Any]: ...
+    @property
+    def dict(self) -> dict[str, Any]: ...
+    @property
+    def json(self) -> str: ...
+    def __getitem__(self, key: str) -> Any: ...
+
+
 class DvmdbDeviceVdomAddResponse(FortiAnalyzerResponse):
-    """Typed response for DvmdbDeviceVdom endpoint with autocomplete support."""
+    """Typed response for DvmdbDeviceVdomAdd endpoint with autocomplete support."""
 
     # ========================================================================
     # HTTP Layer Properties (inherited from FortiAnalyzerResponse)
@@ -44,20 +60,6 @@ class DvmdbDeviceVdomAddResponse(FortiAnalyzerResponse):
         """Field: name"""
         ...
 
-    class DvmdbDeviceVdomItem:
-        """Item yielded when iterating over DvmdbDeviceVdomResponse."""
-
-        @property
-        def name(self) -> str: ...
-
-        # Inherited from FortiAnalyzerObject
-        @property
-        def raw(self) -> dict[str, Any]: ...
-        @property
-        def dict(self) -> dict[str, Any]: ...
-        @property
-        def json(self) -> str: ...
-        def __getitem__(self, key: str) -> Any: ...
 
     # Inherited methods from FortiAnalyzerResponse
     @property
@@ -69,12 +71,44 @@ class DvmdbDeviceVdomAddResponse(FortiAnalyzerResponse):
     def get(self, key: str, default: Any = None) -> Any: ...
     def __getitem__(self, key: str) -> Any: ...
     def __contains__(self, key: str) -> bool: ...
-    def __iter__(self) -> Iterator[DvmdbDeviceVdomItem]: ...
+    def __iter__(self) -> Iterator[DvmdbDeviceVdomAddItem]: ...
     def __len__(self) -> int: ...
 
 
+class DvmdbDeviceVdomGetItem:
+    """Item yielded when iterating over DvmdbDeviceVdomGetResponse."""
+
+    @property
+    def oid(self) -> int: ...
+    @property
+    def comments(self) -> str: ...
+    @property
+    def meta_fields(self) -> dict[str, Any]: ...
+    @property
+    def name(self) -> str: ...
+    @property
+    def opmode(self) -> Literal["nat", "transparent"]: ...
+    @property
+    def rtm_prof_id(self) -> int: ...
+    @property
+    def status(self) -> str: ...
+    @property
+    def vdom_type(self) -> Literal["traffic", "admin"]: ...
+    @property
+    def vpn_id(self) -> int: ...
+
+    # Inherited from FortiAnalyzerObject
+    @property
+    def raw(self) -> dict[str, Any]: ...
+    @property
+    def dict(self) -> dict[str, Any]: ...
+    @property
+    def json(self) -> str: ...
+    def __getitem__(self, key: str) -> Any: ...
+
+
 class DvmdbDeviceVdomGetResponse(FortiAnalyzerResponse):
-    """Typed response for DvmdbDeviceVdom endpoint with autocomplete support."""
+    """Typed response for DvmdbDeviceVdomGet endpoint with autocomplete support."""
 
     # ========================================================================
     # HTTP Layer Properties (inherited from FortiAnalyzerResponse)
@@ -150,36 +184,6 @@ class DvmdbDeviceVdomGetResponse(FortiAnalyzerResponse):
         """Field: vpn_id"""
         ...
 
-    class DvmdbDeviceVdomItem:
-        """Item yielded when iterating over DvmdbDeviceVdomResponse."""
-
-        @property
-        def oid(self) -> int: ...
-        @property
-        def comments(self) -> str: ...
-        @property
-        def meta_fields(self) -> dict[str, Any]: ...
-        @property
-        def name(self) -> str: ...
-        @property
-        def opmode(self) -> Literal["nat", "transparent"]: ...
-        @property
-        def rtm_prof_id(self) -> int: ...
-        @property
-        def status(self) -> str: ...
-        @property
-        def vdom_type(self) -> Literal["traffic", "admin"]: ...
-        @property
-        def vpn_id(self) -> int: ...
-
-        # Inherited from FortiAnalyzerObject
-        @property
-        def raw(self) -> dict[str, Any]: ...
-        @property
-        def dict(self) -> dict[str, Any]: ...
-        @property
-        def json(self) -> str: ...
-        def __getitem__(self, key: str) -> Any: ...
 
     # Inherited methods from FortiAnalyzerResponse
     @property
@@ -191,9 +195,8 @@ class DvmdbDeviceVdomGetResponse(FortiAnalyzerResponse):
     def get(self, key: str, default: Any = None) -> Any: ...
     def __getitem__(self, key: str) -> Any: ...
     def __contains__(self, key: str) -> bool: ...
-    def __iter__(self) -> Iterator[DvmdbDeviceVdomItem]: ...
+    def __iter__(self) -> Iterator[DvmdbDeviceVdomGetItem]: ...
     def __len__(self) -> int: ...
-
 
 
 class DvmdbDeviceVdom:
@@ -203,8 +206,8 @@ class DvmdbDeviceVdom:
 
     def add(
         self,
-        adom: str | None = None,
-        device: str | None = None,
+        device: str,
+        vdom: int | str | None = None,
         comments: str | None = None,
         meta_fields: dict[str, Any] | None = None,
         name: str | None = None,
@@ -219,8 +222,8 @@ class DvmdbDeviceVdom:
 
     def get(
         self,
-        adom: str | None = None,
-        device: str | None = None,
+        device: str,
+        vdom: int | str | None = None,
         expand_member: str | None = None,
         fields: list[Literal["comments", "name", "opmode", "rtm_prof_id", "status", "vdom_type", "vpn_id"]] | None = None,
         filter: list[str] | None = None,
@@ -235,8 +238,8 @@ class DvmdbDeviceVdom:
 
     def set(
         self,
-        adom: str | None = None,
-        device: str | None = None,
+        device: str,
+        vdom: int | str | None = None,
         comments: str | None = None,
         meta_fields: dict[str, Any] | None = None,
         name: str | None = None,
@@ -251,8 +254,8 @@ class DvmdbDeviceVdom:
 
     def update(
         self,
-        adom: str | None = None,
-        device: str | None = None,
+        device: str,
+        vdom: int | str | None = None,
         comments: str | None = None,
         meta_fields: dict[str, Any] | None = None,
         name: str | None = None,
@@ -267,16 +270,8 @@ class DvmdbDeviceVdom:
 
     def delete(
         self,
-        adom: str | None = None,
-        device: str | None = None,
-        comments: str | None = None,
-        meta_fields: dict[str, Any] | None = None,
-        name: str | None = None,
-        opmode: Literal["nat", "transparent"] | None = None,
-        rtm_prof_id: int | None = None,
-        status: str | None = None,
-        vdom_type: Literal["traffic", "admin"] | None = None,
-        vpn_id: int | None = None,
+        device: str,
+        vdom: int | str | None = None,
     ) -> FortiAnalyzerResponse:
         """DELETE operation."""
         ...

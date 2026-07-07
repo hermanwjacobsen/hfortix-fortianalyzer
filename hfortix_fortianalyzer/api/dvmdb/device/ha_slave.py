@@ -11,7 +11,7 @@ from hfortix_core.http.jsonrpc_client import HTTPClientJSONRPC
 from hfortix_fortianalyzer.models import FortiAnalyzerResponse
 
 
-class DvmdbDeviceHa_slave:
+class DvmdbDeviceHaSlave:
     """
     FortiAnalyzer endpoint: dvmdb.device.ha_slave
     
@@ -30,8 +30,8 @@ class DvmdbDeviceHa_slave:
 
     def get(
         self,
-        adom: str | None = None,
-        device: str | None = None,
+        device: str,
+        ha_slave: int | str | None = None,
         expand_member: str | None = None,
         fields: list[Literal["conf_status", "idx", "name", "prio", "role", "sn", "status"]] | None = None,
         filter: list[str] | None = None,
@@ -44,8 +44,8 @@ class DvmdbDeviceHa_slave:
         GET operation.
         
         Args:
-            adom: ADOM name.
             device: Unique name for the device.
+            ha_slave: ha_slave parameter
             expand_member: Fetch all or selected attributes of object members.
             fields: Limit the output by returning only the attributes specified in the string array. If none specified, all attributes will be returned.
             filter: Filter the result according to a set of criteria.
@@ -55,16 +55,17 @@ class DvmdbDeviceHa_slave:
             sortings: Specify the sorting of the returned result.
         
         Returns:
-            Response data from FortiManager API
+            Response data from FortiAnalyzer API
         """
         # Build URL
         # Path parameters are optional - if not provided, returns all objects
-        if adom is not None and device is not None:
-            url = "/dvmdb/adom/{adom}/device/{device}/ha_slave"
-            url = url.replace("{adom}", adom)
+        if device is not None and ha_slave is not None:
+            url = "/dvmdb/device/{device}/ha_slave/{ha_slave}"
             url = url.replace("{device}", device)
+            url = url.replace("{ha_slave}", str(ha_slave))
         else:
-            url = "/dvmdb/adom/device/ha_slave"
+            url = "/dvmdb/device/{device}/ha_slave"
+            url = url.replace("{device}", device)
         
         # Build request parameters
         # For GET, parameters go at the top level of params (not inside data)
@@ -98,4 +99,5 @@ class DvmdbDeviceHa_slave:
             params=params
         )
         
+        # Wrap response in FortiAnalyzerResponse for clean attribute access
         return FortiAnalyzerResponse(response)

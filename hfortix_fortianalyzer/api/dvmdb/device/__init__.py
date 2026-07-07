@@ -1,6 +1,8 @@
-"""FortiManager device API endpoints."""
+"""FortiAnalyzer device API endpoints."""
 
 from __future__ import annotations
+
+from ..device_base import DvmdbDevice as DvmdbDeviceBase
 
 from typing import TYPE_CHECKING
 
@@ -9,19 +11,21 @@ if TYPE_CHECKING:
     from . import ha_slave
     from . import vdom
 
-__all__ = ["Device"]
+__all__ = ["DvmdbDevice"]
 
 
-class Device:
-    """FortiManager device API endpoints."""
+class DvmdbDevice(DvmdbDeviceBase):
+    """FortiAnalyzer device API endpoints."""
 
-    ha_slave: "ha_slave.DvmdbDeviceHa_slave"
+    ha_slave: "ha_slave.DvmdbDeviceHaSlave"
     vdom: "vdom.DvmdbDeviceVdom"
 
     def __init__(self, client: "HTTPClientJSONRPC") -> None:
-        """Initialize Device namespace with JSON-RPC client."""
+        """Initialize DvmdbDevice with endpoint methods and child modules."""
+        super().__init__(client)
+
         from . import ha_slave as ha_slave_module
         from . import vdom as vdom_module
 
-        self.ha_slave = ha_slave_module.DvmdbDeviceHa_slave(client)
+        self.ha_slave = ha_slave_module.DvmdbDeviceHaSlave(client)
         self.vdom = vdom_module.DvmdbDeviceVdom(client)

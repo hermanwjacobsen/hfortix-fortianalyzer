@@ -30,7 +30,7 @@ class DvmdbFolder:
 
     def add(
         self,
-        adom: str | None = None,
+        folder: int | str | None = None,
         desc: str | None = None,
         name: str | None = None,
         parent: int | None = None
@@ -39,21 +39,16 @@ class DvmdbFolder:
         ADD operation.
         
         Args:
-            adom: ADOM name.
+            folder: folder parameter
             desc: desc parameter
             name: name parameter
             parent: parent parameter
         
         Returns:
-            Response data from FortiManager API
+            Response data from FortiAnalyzer API
         """
         # Build URL
-        # Path parameters are optional - if not provided, returns all objects
-        if adom is not None:
-            url = "/dvmdb/adom/{adom}/folder"
-            url = url.replace("{adom}", adom)
-        else:
-            url = "/dvmdb/adom/folder"
+        url = "/dvmdb/folder"
         
         # Build data payload
         data = {}
@@ -75,11 +70,12 @@ class DvmdbFolder:
             params=params
         )
         
+        # Wrap response in FortiAnalyzerResponse for clean attribute access
         return FortiAnalyzerResponse(response)
 
     def get(
         self,
-        adom: str | None = None,
+        folder: int | str | None = None,
         expand_member: str | None = None,
         fields: list[Literal["desc", "name", "parent"]] | None = None,
         filter: list[str] | None = None,
@@ -92,7 +88,7 @@ class DvmdbFolder:
         GET operation.
         
         Args:
-            adom: ADOM name.
+            folder: folder parameter
             expand_member: Fetch all or selected attributes of object members.
             fields: Limit the output by returning only the attributes specified in the string array. If none specified, all attributes will be returned.
             filter: Filter the result according to a set of criteria.
@@ -102,15 +98,15 @@ class DvmdbFolder:
             sortings: Specify the sorting of the returned result.
         
         Returns:
-            Response data from FortiManager API
+            Response data from FortiAnalyzer API
         """
         # Build URL
         # Path parameters are optional - if not provided, returns all objects
-        if adom is not None:
-            url = "/dvmdb/adom/{adom}/folder"
-            url = url.replace("{adom}", adom)
+        if folder is not None:
+            url = "/dvmdb/folder/{folder}"
+            url = url.replace("{folder}", str(folder))
         else:
-            url = "/dvmdb/adom/folder"
+            url = "/dvmdb/folder"
         
         # Build request parameters
         # For GET, parameters go at the top level of params (not inside data)
@@ -144,11 +140,12 @@ class DvmdbFolder:
             params=params
         )
         
+        # Wrap response in FortiAnalyzerResponse for clean attribute access
         return FortiAnalyzerResponse(response)
 
     def set(
         self,
-        adom: str | None = None,
+        folder: int | str | None = None,
         desc: str | None = None,
         name: str | None = None,
         parent: int | None = None
@@ -157,21 +154,21 @@ class DvmdbFolder:
         SET operation.
         
         Args:
-            adom: ADOM name.
+            folder: folder parameter
             desc: desc parameter
             name: name parameter
             parent: parent parameter
         
         Returns:
-            Response data from FortiManager API
+            Response data from FortiAnalyzer API
         """
         # Build URL
         # Path parameters are optional - if not provided, returns all objects
-        if adom is not None:
-            url = "/dvmdb/adom/{adom}/folder"
-            url = url.replace("{adom}", adom)
+        if folder is not None:
+            url = "/dvmdb/folder/{folder}"
+            url = url.replace("{folder}", str(folder))
         else:
-            url = "/dvmdb/adom/folder"
+            url = "/dvmdb/folder"
         
         # Build data payload
         data = {}
@@ -193,11 +190,12 @@ class DvmdbFolder:
             params=params
         )
         
+        # Wrap response in FortiAnalyzerResponse for clean attribute access
         return FortiAnalyzerResponse(response)
 
     def update(
         self,
-        adom: str | None = None,
+        folder: int | str | None = None,
         desc: str | None = None,
         name: str | None = None,
         parent: int | None = None
@@ -206,21 +204,21 @@ class DvmdbFolder:
         UPDATE operation.
         
         Args:
-            adom: ADOM name.
+            folder: folder parameter
             desc: desc parameter
             name: name parameter
             parent: parent parameter
         
         Returns:
-            Response data from FortiManager API
+            Response data from FortiAnalyzer API
         """
         # Build URL
         # Path parameters are optional - if not provided, returns all objects
-        if adom is not None:
-            url = "/dvmdb/adom/{adom}/folder"
-            url = url.replace("{adom}", adom)
+        if folder is not None:
+            url = "/dvmdb/folder/{folder}"
+            url = url.replace("{folder}", str(folder))
         else:
-            url = "/dvmdb/adom/folder"
+            url = "/dvmdb/folder"
         
         # Build data payload
         data = {}
@@ -242,48 +240,32 @@ class DvmdbFolder:
             params=params
         )
         
+        # Wrap response in FortiAnalyzerResponse for clean attribute access
         return FortiAnalyzerResponse(response)
 
-    def delete(
-        self,
-        adom: str | None = None,
-        desc: str | None = None,
-        name: str | None = None,
-        parent: int | None = None
-    ) -> FortiAnalyzerResponse:
+    def delete(self, folder: int | str | None = None) -> FortiAnalyzerResponse:
         """
         DELETE operation.
         
         Args:
-            adom: ADOM name.
-            desc: desc parameter
-            name: name parameter
-            parent: parent parameter
+            folder: folder parameter
         
         Returns:
-            Response data from FortiManager API
+            Response data from FortiAnalyzer API
         """
         # Build URL
         # Path parameters are optional - if not provided, returns all objects
-        if adom is not None:
-            url = "/dvmdb/adom/{adom}/folder"
-            url = url.replace("{adom}", adom)
+        if folder is not None:
+            url = "/dvmdb/folder/{folder}"
+            url = url.replace("{folder}", str(folder))
         else:
-            url = "/dvmdb/adom/folder"
+            url = "/dvmdb/folder"
         
-        # Build data payload
         data = {}
-        if desc is not None:
-            data["desc"] = desc
-        if name is not None:
-            data["name"] = name
-        if parent is not None:
-            data["parent"] = parent
         
         # Execute JSON-RPC API call
         params = [{
             "url": url,
-            "data": data
         }]
         
         response = self._client.execute(
@@ -291,4 +273,5 @@ class DvmdbFolder:
             params=params
         )
         
+        # Wrap response in FortiAnalyzerResponse for clean attribute access
         return FortiAnalyzerResponse(response)

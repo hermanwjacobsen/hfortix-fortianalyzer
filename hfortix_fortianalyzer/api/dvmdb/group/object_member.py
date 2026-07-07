@@ -27,45 +27,25 @@ class DvmdbGroupObjectMember:
         """
         self._client = client
 
-    def add(
-        self,
-        adom: str | None = None,
-        group: str | None = None,
-        name: str | None = None,
-        vdom: str | None = None
-    ) -> FortiAnalyzerResponse:
+    def add(self, group: str, object_member: list[dict[str, Any]] | None = None) -> FortiAnalyzerResponse:
         """
         ADD operation.
         
         Args:
-            adom: ADOM name.
             group: group parameter
-            name: name parameter
-            vdom: vdom parameter
+            object_member: List of objects (schema: common.scope.object). Each object has keys: name, vdom.
         
         Returns:
-            Response data from FortiManager API
+            Response data from FortiAnalyzer API
         """
         # Build URL
-        # Path parameters are optional - if not provided, returns all objects
-        if adom is not None and group is not None:
-            url = "/dvmdb/adom/{adom}/group/{group}/object member"
-            url = url.replace("{adom}", adom)
-            url = url.replace("{group}", group)
-        else:
-            url = "/dvmdb/adom/group/object member"
-        
-        # Build data payload
-        data = {}
-        if name is not None:
-            data["name"] = name
-        if vdom is not None:
-            data["vdom"] = vdom
+        url = "/dvmdb/group/{group}/object member"
+        url = url.replace("{group}", group)
         
         # Execute JSON-RPC API call
         params = [{
             "url": url,
-            "data": data
+            "data": object_member if object_member is not None else []
         }]
         
         response = self._client.execute(
@@ -73,47 +53,28 @@ class DvmdbGroupObjectMember:
             params=params
         )
         
+        # Wrap response in FortiAnalyzerResponse for clean attribute access
         return FortiAnalyzerResponse(response)
 
-    def delete(
-        self,
-        adom: str | None = None,
-        group: str | None = None,
-        name: str | None = None,
-        vdom: str | None = None
-    ) -> FortiAnalyzerResponse:
+    def delete(self, group: str, object_member: list[dict[str, Any]] | None = None) -> FortiAnalyzerResponse:
         """
         DELETE operation.
         
         Args:
-            adom: ADOM name.
             group: group parameter
-            name: name parameter
-            vdom: vdom parameter
+            object_member: List of objects (schema: common.scope.object). Each object has keys: name, vdom.
         
         Returns:
-            Response data from FortiManager API
+            Response data from FortiAnalyzer API
         """
         # Build URL
-        # Path parameters are optional - if not provided, returns all objects
-        if adom is not None and group is not None:
-            url = "/dvmdb/adom/{adom}/group/{group}/object member"
-            url = url.replace("{adom}", adom)
-            url = url.replace("{group}", group)
-        else:
-            url = "/dvmdb/adom/group/object member"
-        
-        # Build data payload
-        data = {}
-        if name is not None:
-            data["name"] = name
-        if vdom is not None:
-            data["vdom"] = vdom
+        url = "/dvmdb/group/{group}/object member"
+        url = url.replace("{group}", group)
         
         # Execute JSON-RPC API call
         params = [{
             "url": url,
-            "data": data
+            "data": object_member if object_member is not None else []
         }]
         
         response = self._client.execute(
@@ -121,47 +82,28 @@ class DvmdbGroupObjectMember:
             params=params
         )
         
+        # Wrap response in FortiAnalyzerResponse for clean attribute access
         return FortiAnalyzerResponse(response)
 
-    def set(
-        self,
-        adom: str | None = None,
-        group: str | None = None,
-        name: str | None = None,
-        vdom: str | None = None
-    ) -> FortiAnalyzerResponse:
+    def set(self, group: str, object_member: list[dict[str, Any]] | None = None) -> FortiAnalyzerResponse:
         """
         SET operation.
         
         Args:
-            adom: ADOM name.
             group: group parameter
-            name: name parameter
-            vdom: vdom parameter
+            object_member: List of objects (schema: common.scope.object). Each object has keys: name, vdom.
         
         Returns:
-            Response data from FortiManager API
+            Response data from FortiAnalyzer API
         """
         # Build URL
-        # Path parameters are optional - if not provided, returns all objects
-        if adom is not None and group is not None:
-            url = "/dvmdb/adom/{adom}/group/{group}/object member"
-            url = url.replace("{adom}", adom)
-            url = url.replace("{group}", group)
-        else:
-            url = "/dvmdb/adom/group/object member"
-        
-        # Build data payload
-        data = {}
-        if name is not None:
-            data["name"] = name
-        if vdom is not None:
-            data["vdom"] = vdom
+        url = "/dvmdb/group/{group}/object member"
+        url = url.replace("{group}", group)
         
         # Execute JSON-RPC API call
         params = [{
             "url": url,
-            "data": data
+            "data": object_member if object_member is not None else []
         }]
         
         response = self._client.execute(
@@ -169,47 +111,28 @@ class DvmdbGroupObjectMember:
             params=params
         )
         
+        # Wrap response in FortiAnalyzerResponse for clean attribute access
         return FortiAnalyzerResponse(response)
 
-    def update(
-        self,
-        adom: str | None = None,
-        group: str | None = None,
-        name: str | None = None,
-        vdom: str | None = None
-    ) -> FortiAnalyzerResponse:
+    def update(self, group: str, object_member: list[dict[str, Any]] | None = None) -> FortiAnalyzerResponse:
         """
         UPDATE operation.
         
         Args:
-            adom: ADOM name.
             group: group parameter
-            name: name parameter
-            vdom: vdom parameter
+            object_member: List of objects (schema: common.scope.object). Each object has keys: name, vdom.
         
         Returns:
-            Response data from FortiManager API
+            Response data from FortiAnalyzer API
         """
         # Build URL
-        # Path parameters are optional - if not provided, returns all objects
-        if adom is not None and group is not None:
-            url = "/dvmdb/adom/{adom}/group/{group}/object member"
-            url = url.replace("{adom}", adom)
-            url = url.replace("{group}", group)
-        else:
-            url = "/dvmdb/adom/group/object member"
-        
-        # Build data payload
-        data = {}
-        if name is not None:
-            data["name"] = name
-        if vdom is not None:
-            data["vdom"] = vdom
+        url = "/dvmdb/group/{group}/object member"
+        url = url.replace("{group}", group)
         
         # Execute JSON-RPC API call
         params = [{
             "url": url,
-            "data": data
+            "data": object_member if object_member is not None else []
         }]
         
         response = self._client.execute(
@@ -217,4 +140,5 @@ class DvmdbGroupObjectMember:
             params=params
         )
         
+        # Wrap response in FortiAnalyzerResponse for clean attribute access
         return FortiAnalyzerResponse(response)

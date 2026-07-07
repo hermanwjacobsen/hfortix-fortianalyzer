@@ -1,0 +1,27 @@
+"""FortiAnalyzer group adom API endpoints."""
+
+from __future__ import annotations
+
+from ..group_base import DvmdbAdomGroup as DvmdbAdomGroupBase
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from hfortix_core.http.jsonrpc_client import HTTPClientJSONRPC
+    from . import object_member
+
+__all__ = ["DvmdbAdomGroup"]
+
+
+class DvmdbAdomGroup(DvmdbAdomGroupBase):
+    """FortiAnalyzer group adom API endpoints."""
+
+    object_member: "object_member.DvmdbAdomGroupObjectMember"
+
+    def __init__(self, client: "HTTPClientJSONRPC") -> None:
+        """Initialize DvmdbAdomGroup with endpoint methods and child modules."""
+        super().__init__(client)
+
+        from . import object_member as object_member_module
+
+        self.object_member = object_member_module.DvmdbAdomGroupObjectMember(client)

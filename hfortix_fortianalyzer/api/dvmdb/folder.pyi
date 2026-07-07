@@ -7,8 +7,24 @@ from hfortix_core.http.jsonrpc_client import HTTPClientJSONRPC
 from hfortix_fortianalyzer.models import FortiAnalyzerResponse
 
 
+class DvmdbFolderAddItem:
+    """Item yielded when iterating over DvmdbFolderAddResponse."""
+
+    @property
+    def name(self) -> str: ...
+
+    # Inherited from FortiAnalyzerObject
+    @property
+    def raw(self) -> dict[str, Any]: ...
+    @property
+    def dict(self) -> dict[str, Any]: ...
+    @property
+    def json(self) -> str: ...
+    def __getitem__(self, key: str) -> Any: ...
+
+
 class DvmdbFolderAddResponse(FortiAnalyzerResponse):
-    """Typed response for DvmdbFolder endpoint with autocomplete support."""
+    """Typed response for DvmdbFolderAdd endpoint with autocomplete support."""
 
     # ========================================================================
     # HTTP Layer Properties (inherited from FortiAnalyzerResponse)
@@ -44,20 +60,6 @@ class DvmdbFolderAddResponse(FortiAnalyzerResponse):
         """Field: name"""
         ...
 
-    class DvmdbFolderItem:
-        """Item yielded when iterating over DvmdbFolderResponse."""
-
-        @property
-        def name(self) -> str: ...
-
-        # Inherited from FortiAnalyzerObject
-        @property
-        def raw(self) -> dict[str, Any]: ...
-        @property
-        def dict(self) -> dict[str, Any]: ...
-        @property
-        def json(self) -> str: ...
-        def __getitem__(self, key: str) -> Any: ...
 
     # Inherited methods from FortiAnalyzerResponse
     @property
@@ -69,12 +71,34 @@ class DvmdbFolderAddResponse(FortiAnalyzerResponse):
     def get(self, key: str, default: Any = None) -> Any: ...
     def __getitem__(self, key: str) -> Any: ...
     def __contains__(self, key: str) -> bool: ...
-    def __iter__(self) -> Iterator[DvmdbFolderItem]: ...
+    def __iter__(self) -> Iterator[DvmdbFolderAddItem]: ...
     def __len__(self) -> int: ...
 
 
+class DvmdbFolderGetItem:
+    """Item yielded when iterating over DvmdbFolderGetResponse."""
+
+    @property
+    def oid(self) -> int: ...
+    @property
+    def desc(self) -> str: ...
+    @property
+    def name(self) -> str: ...
+    @property
+    def parent(self) -> int: ...
+
+    # Inherited from FortiAnalyzerObject
+    @property
+    def raw(self) -> dict[str, Any]: ...
+    @property
+    def dict(self) -> dict[str, Any]: ...
+    @property
+    def json(self) -> str: ...
+    def __getitem__(self, key: str) -> Any: ...
+
+
 class DvmdbFolderGetResponse(FortiAnalyzerResponse):
-    """Typed response for DvmdbFolder endpoint with autocomplete support."""
+    """Typed response for DvmdbFolderGet endpoint with autocomplete support."""
 
     # ========================================================================
     # HTTP Layer Properties (inherited from FortiAnalyzerResponse)
@@ -125,26 +149,6 @@ class DvmdbFolderGetResponse(FortiAnalyzerResponse):
         """Field: parent"""
         ...
 
-    class DvmdbFolderItem:
-        """Item yielded when iterating over DvmdbFolderResponse."""
-
-        @property
-        def oid(self) -> int: ...
-        @property
-        def desc(self) -> str: ...
-        @property
-        def name(self) -> str: ...
-        @property
-        def parent(self) -> int: ...
-
-        # Inherited from FortiAnalyzerObject
-        @property
-        def raw(self) -> dict[str, Any]: ...
-        @property
-        def dict(self) -> dict[str, Any]: ...
-        @property
-        def json(self) -> str: ...
-        def __getitem__(self, key: str) -> Any: ...
 
     # Inherited methods from FortiAnalyzerResponse
     @property
@@ -156,9 +160,8 @@ class DvmdbFolderGetResponse(FortiAnalyzerResponse):
     def get(self, key: str, default: Any = None) -> Any: ...
     def __getitem__(self, key: str) -> Any: ...
     def __contains__(self, key: str) -> bool: ...
-    def __iter__(self) -> Iterator[DvmdbFolderItem]: ...
+    def __iter__(self) -> Iterator[DvmdbFolderGetItem]: ...
     def __len__(self) -> int: ...
-
 
 
 class DvmdbFolder:
@@ -168,7 +171,7 @@ class DvmdbFolder:
 
     def add(
         self,
-        adom: str | None = None,
+        folder: int | str | None = None,
         desc: str | None = None,
         name: str | None = None,
         parent: int | None = None,
@@ -178,7 +181,7 @@ class DvmdbFolder:
 
     def get(
         self,
-        adom: str | None = None,
+        folder: int | str | None = None,
         expand_member: str | None = None,
         fields: list[Literal["desc", "name", "parent"]] | None = None,
         filter: list[str] | None = None,
@@ -192,7 +195,7 @@ class DvmdbFolder:
 
     def set(
         self,
-        adom: str | None = None,
+        folder: int | str | None = None,
         desc: str | None = None,
         name: str | None = None,
         parent: int | None = None,
@@ -202,7 +205,7 @@ class DvmdbFolder:
 
     def update(
         self,
-        adom: str | None = None,
+        folder: int | str | None = None,
         desc: str | None = None,
         name: str | None = None,
         parent: int | None = None,
@@ -212,13 +215,10 @@ class DvmdbFolder:
 
     def delete(
         self,
-        adom: str | None = None,
-        desc: str | None = None,
-        name: str | None = None,
-        parent: int | None = None,
+        folder: int | str | None = None,
     ) -> FortiAnalyzerResponse:
         """DELETE operation."""
         ...
 
 
-__all__ = ["DvmdbFolder", "DvmdbFolderGetResponse", "DvmdbFolderAddResponse"]
+__all__ = ["DvmdbFolder", "DvmdbFolderAddResponse", "DvmdbFolderGetResponse"]

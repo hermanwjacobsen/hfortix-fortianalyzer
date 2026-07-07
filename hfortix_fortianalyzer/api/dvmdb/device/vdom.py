@@ -30,23 +30,23 @@ class DvmdbDeviceVdom:
 
     def add(
         self,
-        adom: str | None = None,
-        device: str | None = None,
+        device: str,
+        vdom: int | str | None = None,
+        opmode: Literal["nat", "transparent"] | None = None,
+        vdom_type: Literal["traffic", "admin"] | None = None,
         comments: str | None = None,
         meta_fields: dict[str, Any] | None = None,
         name: str | None = None,
-        opmode: Literal["nat", "transparent"] | None = None,
         rtm_prof_id: int | None = None,
         status: str | None = None,
-        vdom_type: Literal["traffic", "admin"] | None = None,
         vpn_id: int | None = None
     ) -> FortiAnalyzerResponse:
         """
         ADD operation.
         
         Args:
-            adom: ADOM name.
             device: Unique name for the device.
+            vdom: vdom parameter
             comments: comments parameter
             meta_fields: meta fields parameter
             name: name parameter
@@ -57,16 +57,11 @@ class DvmdbDeviceVdom:
             vpn_id: vpn_id parameter
         
         Returns:
-            Response data from FortiManager API
+            Response data from FortiAnalyzer API
         """
         # Build URL
-        # Path parameters are optional - if not provided, returns all objects
-        if adom is not None and device is not None:
-            url = "/dvmdb/adom/{adom}/device/{device}/vdom"
-            url = url.replace("{adom}", adom)
-            url = url.replace("{device}", device)
-        else:
-            url = "/dvmdb/adom/device/vdom"
+        url = "/dvmdb/device/{device}/vdom"
+        url = url.replace("{device}", device)
         
         # Build data payload
         data = {}
@@ -98,12 +93,13 @@ class DvmdbDeviceVdom:
             params=params
         )
         
+        # Wrap response in FortiAnalyzerResponse for clean attribute access
         return FortiAnalyzerResponse(response)
 
     def get(
         self,
-        adom: str | None = None,
-        device: str | None = None,
+        device: str,
+        vdom: int | str | None = None,
         expand_member: str | None = None,
         fields: list[Literal["comments", "name", "opmode", "rtm_prof_id", "status", "vdom_type", "vpn_id"]] | None = None,
         filter: list[str] | None = None,
@@ -117,8 +113,8 @@ class DvmdbDeviceVdom:
         GET operation.
         
         Args:
-            adom: ADOM name.
             device: Unique name for the device.
+            vdom: vdom parameter
             expand_member: Fetch all or selected attributes of object members.
             fields: Limit the output by returning only the attributes specified in the string array. If none specified, all attributes will be returned.
             filter: Filter the result according to a set of criteria.
@@ -129,16 +125,17 @@ class DvmdbDeviceVdom:
             sortings: Specify the sorting of the returned result.
         
         Returns:
-            Response data from FortiManager API
+            Response data from FortiAnalyzer API
         """
         # Build URL
         # Path parameters are optional - if not provided, returns all objects
-        if adom is not None and device is not None:
-            url = "/dvmdb/adom/{adom}/device/{device}/vdom"
-            url = url.replace("{adom}", adom)
+        if device is not None and vdom is not None:
+            url = "/dvmdb/device/{device}/vdom/{vdom}"
             url = url.replace("{device}", device)
+            url = url.replace("{vdom}", str(vdom))
         else:
-            url = "/dvmdb/adom/device/vdom"
+            url = "/dvmdb/device/{device}/vdom"
+            url = url.replace("{device}", device)
         
         # Build request parameters
         # For GET, parameters go at the top level of params (not inside data)
@@ -174,27 +171,28 @@ class DvmdbDeviceVdom:
             params=params
         )
         
+        # Wrap response in FortiAnalyzerResponse for clean attribute access
         return FortiAnalyzerResponse(response)
 
     def set(
         self,
-        adom: str | None = None,
-        device: str | None = None,
+        device: str,
+        vdom: int | str | None = None,
+        opmode: Literal["nat", "transparent"] | None = None,
+        vdom_type: Literal["traffic", "admin"] | None = None,
         comments: str | None = None,
         meta_fields: dict[str, Any] | None = None,
         name: str | None = None,
-        opmode: Literal["nat", "transparent"] | None = None,
         rtm_prof_id: int | None = None,
         status: str | None = None,
-        vdom_type: Literal["traffic", "admin"] | None = None,
         vpn_id: int | None = None
     ) -> FortiAnalyzerResponse:
         """
         SET operation.
         
         Args:
-            adom: ADOM name.
             device: Unique name for the device.
+            vdom: vdom parameter
             comments: comments parameter
             meta_fields: meta fields parameter
             name: name parameter
@@ -205,16 +203,17 @@ class DvmdbDeviceVdom:
             vpn_id: vpn_id parameter
         
         Returns:
-            Response data from FortiManager API
+            Response data from FortiAnalyzer API
         """
         # Build URL
         # Path parameters are optional - if not provided, returns all objects
-        if adom is not None and device is not None:
-            url = "/dvmdb/adom/{adom}/device/{device}/vdom"
-            url = url.replace("{adom}", adom)
+        if device is not None and vdom is not None:
+            url = "/dvmdb/device/{device}/vdom/{vdom}"
             url = url.replace("{device}", device)
+            url = url.replace("{vdom}", str(vdom))
         else:
-            url = "/dvmdb/adom/device/vdom"
+            url = "/dvmdb/device/{device}/vdom"
+            url = url.replace("{device}", device)
         
         # Build data payload
         data = {}
@@ -246,27 +245,28 @@ class DvmdbDeviceVdom:
             params=params
         )
         
+        # Wrap response in FortiAnalyzerResponse for clean attribute access
         return FortiAnalyzerResponse(response)
 
     def update(
         self,
-        adom: str | None = None,
-        device: str | None = None,
+        device: str,
+        vdom: int | str | None = None,
+        opmode: Literal["nat", "transparent"] | None = None,
+        vdom_type: Literal["traffic", "admin"] | None = None,
         comments: str | None = None,
         meta_fields: dict[str, Any] | None = None,
         name: str | None = None,
-        opmode: Literal["nat", "transparent"] | None = None,
         rtm_prof_id: int | None = None,
         status: str | None = None,
-        vdom_type: Literal["traffic", "admin"] | None = None,
         vpn_id: int | None = None
     ) -> FortiAnalyzerResponse:
         """
         UPDATE operation.
         
         Args:
-            adom: ADOM name.
             device: Unique name for the device.
+            vdom: vdom parameter
             comments: comments parameter
             meta_fields: meta fields parameter
             name: name parameter
@@ -277,16 +277,17 @@ class DvmdbDeviceVdom:
             vpn_id: vpn_id parameter
         
         Returns:
-            Response data from FortiManager API
+            Response data from FortiAnalyzer API
         """
         # Build URL
         # Path parameters are optional - if not provided, returns all objects
-        if adom is not None and device is not None:
-            url = "/dvmdb/adom/{adom}/device/{device}/vdom"
-            url = url.replace("{adom}", adom)
+        if device is not None and vdom is not None:
+            url = "/dvmdb/device/{device}/vdom/{vdom}"
             url = url.replace("{device}", device)
+            url = url.replace("{vdom}", str(vdom))
         else:
-            url = "/dvmdb/adom/device/vdom"
+            url = "/dvmdb/device/{device}/vdom"
+            url = url.replace("{device}", device)
         
         # Build data payload
         data = {}
@@ -318,71 +319,35 @@ class DvmdbDeviceVdom:
             params=params
         )
         
+        # Wrap response in FortiAnalyzerResponse for clean attribute access
         return FortiAnalyzerResponse(response)
 
-    def delete(
-        self,
-        adom: str | None = None,
-        device: str | None = None,
-        comments: str | None = None,
-        meta_fields: dict[str, Any] | None = None,
-        name: str | None = None,
-        opmode: Literal["nat", "transparent"] | None = None,
-        rtm_prof_id: int | None = None,
-        status: str | None = None,
-        vdom_type: Literal["traffic", "admin"] | None = None,
-        vpn_id: int | None = None
-    ) -> FortiAnalyzerResponse:
+    def delete(self, device: str, vdom: int | str | None = None) -> FortiAnalyzerResponse:
         """
         DELETE operation.
         
         Args:
-            adom: ADOM name.
             device: Unique name for the device.
-            comments: comments parameter
-            meta_fields: meta fields parameter
-            name: name parameter
-            opmode: opmode parameter
-            rtm_prof_id: rtm_prof_id parameter
-            status: status parameter
-            vdom_type: vdom_type parameter
-            vpn_id: vpn_id parameter
+            vdom: vdom parameter
         
         Returns:
-            Response data from FortiManager API
+            Response data from FortiAnalyzer API
         """
         # Build URL
         # Path parameters are optional - if not provided, returns all objects
-        if adom is not None and device is not None:
-            url = "/dvmdb/adom/{adom}/device/{device}/vdom"
-            url = url.replace("{adom}", adom)
+        if device is not None and vdom is not None:
+            url = "/dvmdb/device/{device}/vdom/{vdom}"
             url = url.replace("{device}", device)
+            url = url.replace("{vdom}", str(vdom))
         else:
-            url = "/dvmdb/adom/device/vdom"
+            url = "/dvmdb/device/{device}/vdom"
+            url = url.replace("{device}", device)
         
-        # Build data payload
         data = {}
-        if comments is not None:
-            data["comments"] = comments
-        if meta_fields is not None:
-            data["meta fields"] = meta_fields
-        if name is not None:
-            data["name"] = name
-        if opmode is not None:
-            data["opmode"] = opmode
-        if rtm_prof_id is not None:
-            data["rtm_prof_id"] = rtm_prof_id
-        if status is not None:
-            data["status"] = status
-        if vdom_type is not None:
-            data["vdom_type"] = vdom_type
-        if vpn_id is not None:
-            data["vpn_id"] = vpn_id
         
         # Execute JSON-RPC API call
         params = [{
             "url": url,
-            "data": data
         }]
         
         response = self._client.execute(
@@ -390,4 +355,5 @@ class DvmdbDeviceVdom:
             params=params
         )
         
+        # Wrap response in FortiAnalyzerResponse for clean attribute access
         return FortiAnalyzerResponse(response)

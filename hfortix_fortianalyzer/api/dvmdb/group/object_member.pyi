@@ -6,7 +6,6 @@ from hfortix_core.http.jsonrpc_client import HTTPClientJSONRPC
 from hfortix_fortianalyzer.models import FortiAnalyzerResponse
 
 
-
 class DvmdbGroupObjectMember:
     """FortiAnalyzer endpoint: dvmdb.group.object member"""
 
@@ -14,40 +13,32 @@ class DvmdbGroupObjectMember:
 
     def add(
         self,
-        adom: str | None = None,
-        group: str | None = None,
-        name: str | None = None,
-        vdom: str | None = None,
+        group: str,
+        object_member: list[dict[str, Any]] | None = None,
     ) -> FortiAnalyzerResponse:
         """ADD operation."""
         ...
 
     def delete(
         self,
-        adom: str | None = None,
-        group: str | None = None,
-        name: str | None = None,
-        vdom: str | None = None,
+        group: str,
+        object_member: list[dict[str, Any]] | None = None,
     ) -> FortiAnalyzerResponse:
         """DELETE operation."""
         ...
 
     def set(
         self,
-        adom: str | None = None,
-        group: str | None = None,
-        name: str | None = None,
-        vdom: str | None = None,
+        group: str,
+        object_member: list[dict[str, Any]] | None = None,
     ) -> FortiAnalyzerResponse:
         """SET operation."""
         ...
 
     def update(
         self,
-        adom: str | None = None,
-        group: str | None = None,
-        name: str | None = None,
-        vdom: str | None = None,
+        group: str,
+        object_member: list[dict[str, Any]] | None = None,
     ) -> FortiAnalyzerResponse:
         """UPDATE operation."""
         ...
