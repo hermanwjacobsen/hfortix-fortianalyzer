@@ -1,0 +1,11 @@
+# hfortix-fortianalyzer package manifest
+
+# Include documentation files
+include README.md
+# include LICENSE  # Exclude LICENSE to avoid metadata issues
+
+# Exclude development and test files
+global-exclude __pycache__/*
+global-exclude *.py[cod]
+prune tests
+prune docs

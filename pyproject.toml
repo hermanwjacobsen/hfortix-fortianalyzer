@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hfortix-fortianalyzer"
+version = "0.1.0"
+description = "Modern, fully-typed Python SDK for FortiAnalyzer JSON-RPC API (315 endpoints, FAZ 7.6.7)"
+readme = "README.md"
+license = {text = "Proprietary"}
+authors = [{name = "Herman W. Jacobsen", email = "herman@wjacobsen.fo"}]
+keywords = [
+    "fortinet", "fortianalyzer", "faz", "jsonrpc", "api", "sdk",
+    "automation", "logging", "analytics", "security", "network",
+    "siem", "log-management", "reporting", "monitoring", "typed"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: Telecommunications Industry",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Networking :: Monitoring",
+    "Topic :: System :: Systems Administration",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Typing :: Typed",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "hfortix-core>=0.5.161",
+    "httpx>=0.24.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "python-dotenv>=1.0.0",
+    "black>=24.0.0",
+    "mypy>=1.8.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/hermanwjacobsen/hfortix-fortianalyzer"
+Repository = "https://github.com/hermanwjacobsen/hfortix-fortianalyzer"
+Issues = "https://github.com/hermanwjacobsen/hfortix-fortianalyzer/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["hfortix_fortianalyzer*"]
+exclude = ["tests*", "docs*"]
+
+[tool.setuptools.package-data]
+hfortix_fortianalyzer = ["py.typed", "**/*.pyi"]
