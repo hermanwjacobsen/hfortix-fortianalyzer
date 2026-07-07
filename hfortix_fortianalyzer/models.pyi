@@ -1,6 +1,14 @@
 """Type stubs for FortiAnalyzer response models."""
 
-from typing import Any, Iterator, Union
+from __future__ import annotations
+from typing import Any, Iterator, Union, TypeVar, Generic, overload, SupportsIndex, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from pydantic import BaseModel
+
+# TypeVar for generic typed list support
+_ObjectT = TypeVar("_ObjectT", bound="FortiAnalyzerObject")
+_ModelT = TypeVar("_ModelT", bound="BaseModel")
 
 class FortiAnalyzerResponse:
     """Structured wrapper for FortiAnalyzer JSON-RPC API responses."""
@@ -91,6 +99,11 @@ class FortiAnalyzerResponse:
         ...
     
     @property
+    def data(self) -> dict[str, Any] | list[Any]:
+        """Access the raw flattened data (dict or list)."""
+        ...
+    
+    @property
     def dict(self) -> dict[str, Any]:
         """Flattened data as dictionary."""
         ...
@@ -104,54 +117,50 @@ class FortiAnalyzerResponse:
         """Get a field value with optional default."""
         ...
     
+    def as_models(self) -> list[BaseModel] | BaseModel | None:
+        """
+        Parse response data as Pydantic models.
+        
+        Returns:
+            - List of Pydantic models if response is a list
+            - Single Pydantic model if response is a dict
+            - None if no model is registered for this URL
+        """
+        ...
+    
     # ========================================================================
     # Dynamic Attribute Access (Flattened Data)
     # ========================================================================
     # Note: __getattr__ is not defined in the stub file because specific
-    # response classes define all attributes explicitly.
+    # response classes (like SystemDnsResponse) define all attributes explicitly.
     # The base class implements __getattr__ at runtime for dynamic access.
     
     # ========================================================================
     # Container Protocol Support
     # ========================================================================
     
-    def __getitem__(self, key: str) -> Any:
-        """
-        Dictionary-style access to flattened data.
-        
-        Supports both Python-style (underscore) and API-style (hyphen) keys.
-        """
-        ...
+    @overload
+    def __getitem__(self, key: str) -> Any: ...
+    @overload
+    def __getitem__(self, key: int) -> FortiAnalyzerObject: ...
     
-    def __contains__(self, key: str) -> bool:
+    def __contains__(self, key: Any) -> bool:
         """
         Check if key exists in flattened data.
         
-        Supports both Python-style (underscore) and API-style (hyphen) keys.
+        Supports both Python-style (underscore) and API-style (hyphen) keys for dicts.
+        For lists, checks if item is in the list.
         """
         ...
     
-    def __iter__(self) -> Iterator[Any]:
+    def __iter__(self) -> Iterator[FortiAnalyzerObject]:
         """
         Iterate over response data.
         
-        If the response contains a list (e.g., multiple devices), iterates over
-        the list items as typed Pydantic model instances (when available) or
-        FortiAnalyzerObject wrappers. Otherwise, iterates over dict keys (str).
+        - If data is a list (e.g., device list), iterates over wrapped items
+        - If data is a dict, iterates over keys (as strings)
         
-        For typed responses, each item will be a Pydantic model with full
-        autocomplete and type checking for all fields.
-        
-        Examples:
-            >>> # List response (multiple devices) - returns DvmdbDevice instances
-            >>> devices = faz.api.dvmdb.device.get(adom="root")
-            >>> for device in devices:
-            ...     print(device.conn_mode)  # Fully typed attribute access
-            
-            >>> # Dict response (single object)
-            >>> device = faz.api.dvmdb.device.get(adom="root", name="FGT-001")
-            >>> for key in device:
-            ...     print(key)  # Iterate over field names
+        Note: Type hint shows FortiAnalyzerObject for list iteration use cases.
         """
         ...
     
@@ -193,19 +202,54 @@ class FortiAnalyzerObject:
         """Dictionary-style access."""
         ...
     
+    @property
+    def dict(self) -> dict[str, Any]:
+        """Get underlying dictionary."""
+        ...
+    
+    @property
+    def json(self) -> str:
+        """Pretty-printed JSON string of data."""
+        ...
+    
+    @property
+    def raw(self) -> dict[str, Any]:
+        """Get raw underlying dictionary."""
+        ...
+    
     def __repr__(self) -> str:
         """String representation."""
         ...
 
 
-class FortiAnalyzerList(list[Any]):
+class FortiAnalyzerList(list[_ObjectT], Generic[_ObjectT]):
     """
-    Wrapper for lists in FortiAnalyzer responses.
+    Wrapper for lists in FortiAnalyzer responses with typed iteration support.
     
-    Automatically wraps nested dictionaries as FortiAnalyzerObject instances.
+    Automatically wraps nested dictionaries as FortiAnalyzerObject instances
+    and provides proper type hints for child table iterations.
+    
+    The Generic pattern allows for properly typed iterations:
+    ```python
+    for match in group.match:  # match is properly typed as FortiAnalyzerObject
+        print(match.group_name)  # Full autocomplete support
+    ```
     """
     
     def __init__(self, items: list[Any]) -> None: ...
+    
+    # ========================================================================
+    # Iterator and indexing support for proper type inference
+    # ========================================================================
+    
+    def __iter__(self) -> Iterator[_ObjectT]:
+        """Iterate over FortiAnalyzerObject items with full type safety."""
+        ...
+    
+    @overload
+    def __getitem__(self, index: SupportsIndex, /) -> _ObjectT: ...
+    @overload
+    def __getitem__(self, index: slice, /) -> list[_ObjectT]: ...
 
 
 __all__ = [
