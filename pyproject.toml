@@ -30,7 +30,7 @@ classifiers = [
 ]
 requires-python = ">=3.10"
 dependencies = [
-    "hfortix-core>=0.5.161",
+    "hfortix-core>=0.5.165",
     "httpx>=0.24.0",
 ]
 

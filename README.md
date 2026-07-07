@@ -120,9 +120,14 @@ result = faz.client.execute(
 
 ## ⚠️ Known limitations (0.1.x)
 
-- **Generated offline from the 7.6.7 specs** — this release has not yet been
-  validated call-by-call against a live FortiAnalyzer. Treat exotic endpoints
-  with care and report issues.
+- **Validated against a live FortiAnalyzer 7.6.7** for the core flows:
+  session auth, dvmdb/sys/task (legacy dialect) and eventmgmt/logview
+  (apiver-3 dialect, including the logsearch task lifecycle). Exotic
+  endpoints are generated from the specs but not individually exercised —
+  treat them with care and report issues.
+- **`devid` takes the device SERIAL number** in logview/fortiview device
+  filters (e.g. `device=[{"devid": "FGVM02TM25017392"}]`), not the device
+  name — the FAZ rejects names with "None of the device(s) can be found".
 - **One URL form per endpoint** — where the spec documents alternate URL
   forms (e.g. `/report/config/import` also existing as
   `/report/global/config/import` and un-scoped `/report/graph-file`), only
